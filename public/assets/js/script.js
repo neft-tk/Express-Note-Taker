@@ -1,5 +1,3 @@
-const uuid = require("../helpers/uuid");
-
 let noteTitle;
 let noteText;
 let saveNoteBtn;
