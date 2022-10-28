@@ -3,6 +3,7 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let randomId = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
@@ -70,6 +71,7 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
+    id: randomId,
   };
   saveNote(newNote).then(() => {
     getAndRenderNotes();
