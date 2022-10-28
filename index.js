@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const fs = require("fs");
-const uuid = require('uuid');
+const uuid = require('./public/assets/helpers/uuid');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"))
@@ -16,9 +16,7 @@ app.get('/',(req,res)=>{
 })
 
 // GET /notes should return the notes.html file
-app.get('/notes', (req,res) =>{
-    console.log("hello");
-    
+app.get('/notes', (req,res) =>{   
     res.sendFile(path.join(__dirname, "./public/notes.html"))
 });
 
@@ -41,18 +39,14 @@ app.get('/api/notes',(req,res)=>{
 
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post('/api/notes', (req, res) => {
-    // Log that a POST request was received
     console.info(`${req.method} request received to add a note`);
+
+    const { title, note } = req.body;
   
-    // Destructuring assignment for the items in req.body
-    const { title, text } = req.body;
-  
-    // If all the required properties are present
-    if (title && text) {
-      // Variable for the object we will save
+    if (title && note) {
       const newNote = {
         title,
-        text,
+        note,
         review_id: uuid(),
       };
   
